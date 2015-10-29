@@ -25,7 +25,7 @@
       }
 
       function search(value) {
-        var regex = new RegExp(value)
+        var regex = new RegExp(value, 'i')
         var results = []
         var keys = Object.keys(bible.matthew)
         console.log("searching for " + value)
