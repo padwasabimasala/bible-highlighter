@@ -10,21 +10,21 @@ var main = function() {
 
   searchForm.onsubmit = function() {
     var value = document.getElementById("searchBox").value
-    var results = search(value)
+    var results = search(value, bible.matthew)
     clearResults()
     display(results)
     return false
   }
 }
 
-function search(value) {
-  var regex = new RegExp(value, 'i')
+function search(needle, haystack) {
+  var regex = new RegExp(needle, 'i')
   var results = []
-  var keys = Object.keys(bible.matthew)
-  console.log("searching for " + value)
+  var keys = Object.keys(haystack)
+  console.log("searching for " + needle)
   for (i=0; i < keys.length; i++) {
     var key = keys[i]
-    var line = bible.matthew[key]
+    var line = haystack[key]
     if (regex.test(line)) {
       console.log("matched " + line)
       results.push(line)
