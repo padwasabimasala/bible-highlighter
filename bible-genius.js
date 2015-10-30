@@ -1,22 +1,3 @@
-//https://gist.github.com/dciccale/4087856
-var DOMReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
-
-DOMReady(function () {
-  main()
-})
-
-var main = function() {
-  var searchForm = document.getElementById("searchForm")
-
-  searchForm.onsubmit = function() {
-    var value = document.getElementById("searchBox").value
-    var results = search(value, bible.matthew)
-    clearResults()
-    display(results)
-    return false
-  }
-}
-
 function search(needle, haystack) {
   var regex = new RegExp(needle, 'i')
   var results = []
