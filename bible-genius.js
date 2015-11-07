@@ -29,8 +29,9 @@ function clearResults() {
 function display(results) {
   var searchResults = document.getElementById("searchResults")
   for (i = 0; i < results.length; i++) {
+    var result = results[i]
     var p = document.createElement("p")
-    var txt = document.createTextNode(results[i].text )
+    var txt = document.createTextNode(result.location + " " + result.text )
     p.appendChild(txt)
     searchResults.appendChild(p)
     console.log(results[i])
