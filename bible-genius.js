@@ -7,7 +7,7 @@ function search(needle, haystack) {
     var key = keys[i]
     var line = haystack[key]
     var result = {}
-    result.line = line
+    result.text = line
 
     if (regex.test(line)) {
       console.log("matched " + line)
@@ -30,7 +30,7 @@ function display(results) {
   var searchResults = document.getElementById("searchResults")
   for (i = 0; i < results.length; i++) {
     var p = document.createElement("p")
-    var txt = document.createTextNode(results[i].line)
+    var txt = document.createTextNode(results[i].text)
     p.appendChild(txt)
     searchResults.appendChild(p)
     console.log(results[i])
