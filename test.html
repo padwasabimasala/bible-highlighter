@@ -7,6 +7,10 @@
     <script src="qunit-1.20.0.js"></script>
     <script src="bible-genius.js"></script>
     <script>
+      QUnit.test("search", function( assert) {
+        var expectedResult = ["The Cat", "the other cat"]
+        assert.equal(search("cat", haystack), expectedResult )
+      })
       // tests go here :)
     </script>
   </head>
