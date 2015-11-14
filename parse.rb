@@ -17,7 +17,7 @@ class Book
   end
 
   def to_json opts
-    { @name => @verses }.to_json
+    @verses.to_json
   end
 end
 
