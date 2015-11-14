@@ -1,3 +1,4 @@
+
 function search(needle, haystack) {
   var regex = new RegExp(needle, 'i')
   var results = []
@@ -37,3 +38,6 @@ function display(results) {
     console.log(results[i])
   }
 }
+
+//https://gist.github.com/dciccale/4087856
+function domReady(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
