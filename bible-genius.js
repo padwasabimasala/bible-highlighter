@@ -1,4 +1,8 @@
 
+function search(searchText, bible) {
+  return searchBook(searchText, bible.matthew)
+}
+
 function searchBook(needle, haystack) {
   var regex = new RegExp(needle, 'i')
   var results = []
