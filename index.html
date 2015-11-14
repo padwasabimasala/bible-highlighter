@@ -11,7 +11,7 @@
         searchForm.onsubmit = function() {
           clearResults()
           var searchText = document.getElementById("searchBox").value
-          var results = search(searchText, bible.matthew)
+          var results = searchBook(searchText, bible.matthew)
           display(results)
           return false
         }

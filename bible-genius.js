@@ -1,5 +1,5 @@
 
-function search(needle, haystack) {
+function searchBook(needle, haystack) {
   var regex = new RegExp(needle, 'i')
   var results = []
   var keys = Object.keys(haystack)
