@@ -1,3 +1,6 @@
+function Bible(text) {
+  this.text = text
+}
 
 function search(searchText, bible) {
   return searchBook(searchText, bible.Matthew)

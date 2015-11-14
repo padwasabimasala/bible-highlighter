@@ -7,22 +7,21 @@
     <script src="qunit-1.20.0.js"></script>
     <script src="main.js"></script>
     <script>
-    /*
-      {
-      "SomeBook": {
-        "001:001": "the first line of SomeBook",
-        "001:002: "the second line of SomeBook"
-        },
-      "AnotherBook": {
-        "001:001": "the first line of AnotherBook"
-      }
-    }
-    */
+    //   var bibleStruct = {
+    //   "SomeBook": {
+    //     "001:001": "the first line of SomeBook",
+    //     "001:002: "the second line of SomeBook"
+    //     },
+    //   "AnotherBook": {
+    //     "001:001": "the first line of AnotherBook"
+    //   }
+    // }
 
-      QUnit.test("search", function( assert) {
+      QUnit.test("new Bible", function( assert) {
         // var expectedResult = ["The Cat", "the other cat"]
         // assert.equal(search("cat", haystack), expectedResult )
-        assert.equal(1,1)
+        var bible = new Bible("bible text")
+        assert.equal(bible.text, "bible text")
       })
       // tests go here :)
     </script>
