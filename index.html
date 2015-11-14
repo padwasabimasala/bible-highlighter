@@ -9,9 +9,9 @@
       domReady(function () {
         searchForm = document.getElementById("searchForm")
         searchForm.onsubmit = function() {
+          clearResults()
           var searchText = document.getElementById("searchBox").value
           var results = search(searchText, bible.matthew)
-          clearResults()
           display(results)
           return false
         }
