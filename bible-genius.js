@@ -1,6 +1,6 @@
 
 function search(searchText, bible) {
-  return searchBook(searchText, bible.matthew)
+  return searchBook(searchText, bible.Matthew)
 }
 
 function searchBook(needle, haystack) {
