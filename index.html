@@ -6,22 +6,16 @@
     <script src="bible.js"></script>
     <script src="bible-genius.js"></script>
     <script>
-
       domReady(function () {
-        main()
-      })
-
-      var main = function() {
-        var searchForm = document.getElementById("searchForm")
-
+        searchForm = document.getElementById("searchForm")
         searchForm.onsubmit = function() {
-          var value = document.getElementById("searchBox").value
-          var results = search(value, bible.matthew)
+          var searchText = document.getElementById("searchBox").value
+          var results = search(searchText, bible.matthew)
           clearResults()
           display(results)
           return false
         }
-      }
+      })
     </script>
   </head>
   <body>
