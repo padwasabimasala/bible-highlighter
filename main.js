@@ -7,6 +7,7 @@ function searchBook(needle, haystack) {
   var regex = new RegExp(needle, 'i')
   var results = []
   var keys = Object.keys(haystack)
+
   console.log("searching for " + needle)
   for (i=0; i < keys.length; i++) {
     var key = keys[i]
