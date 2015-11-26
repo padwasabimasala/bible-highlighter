@@ -1,15 +1,23 @@
 function Bible(text) {
   this.text = text
+  this.search = function(searchText) {
+    var regex = new RegExp(searchText, 'i')
+    if (regex.test(searchText)) {
+      return this.text
+    } else {
+      return []
+    }
+  }
 }
 
 function search(searchText, bible) {
-  return searchBook(searchText, bible.Matthew)
+  return searchBook(searchText, bible.Matthew, "Matthew")
 }
 
-function searchBook(needle, haystack) {
+function searchBook(needle, haystack, bookName) {
   var regex = new RegExp(needle, 'i')
   var results = []
-  var keys = Object.keys(haystack)
+  var keys = Object.keys(haystack )
 
   console.log("searching for " + needle)
   for (i=0; i < keys.length; i++) {
@@ -18,6 +26,7 @@ function searchBook(needle, haystack) {
 
     if (regex.test(lineOfText)) {
       var result = {}
+      result.bookName = bookName
       result.location = key
       result.text = lineOfText
       results.push(result)
@@ -40,7 +49,7 @@ function display(results) {
   for (i = 0; i < results.length; i++) {
     var result = results[i]
     var p = document.createElement("p")
-    var txt = document.createTextNode(result.location + " " + result.text )
+    var txt = document.createTextNode(result.bookName + " " + result.location + " " + result.text )
     p.appendChild(txt)
     searchResults.appendChild(p)
     console.log(results[i])
