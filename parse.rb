@@ -13,7 +13,7 @@ class Book
   end
 
   def extend_verse line
-    @verses[@last_verse] += line.slice(1,line.length).strip
+    @verses[@last_verse] += "  " + line.slice(1,line.length).strip
   end
 
   def to_json opts
