@@ -57,12 +57,21 @@ function display(results) {
   var searchResults = document.getElementById("searchResults")
   for (var i = 0; i < results.length; i++) {
     var result = results[i]
-    var p = document.createElement("p")
-    var txt = document.createTextNode(result.bookName + " " + result.location + " " + result.text )
-    p.appendChild(txt)
-    searchResults.appendChild(p)
-    // console.log(results[i])
+    var container = document.createElement("div")
+    var closeButton = createElementWithText("span", "x")
+    closeButton.onclick = function() { this.parentNode.parentNode.removeChild(this.parentNode); console.log("click") }
+    var p = createElementWithText("p", result.bookName + " " + result.location + " " + result.text)
+    container.appendChild(closeButton)
+    container.appendChild(p)
+    searchResults.appendChild(container)
   }
+}
+
+function createElementWithText(tagName, text) {
+    var elm = document.createElement(tagName)
+    var txt = document.createTextNode(text)
+    elm.appendChild(txt)
+    return elm
 }
 
 //https://gist.github.com/dciccale/4087856
