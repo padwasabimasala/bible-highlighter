@@ -11,13 +11,24 @@ function Bible(text) {
 }
 
 function search(searchText, bible) {
-  return searchBook(searchText, bible.Matthew, "Matthew")
+  var results = []
+  var allResults = []
+
+  var keys = Object.keys(bible)
+  for (i=0; i < keys.length; i++) {
+    var bookName = keys[i]
+    console.log("searching book " + i + " " + bookName)
+  }
+  bookName = "Matthew"
+  results = searchBook(searchText, bible[bookName], bookName)
+  console.log("returning " + results.length + " results")
+  return results
 }
 
 function searchBook(needle, haystack, bookName) {
   var regex = new RegExp(needle, 'i')
   var results = []
-  var keys = Object.keys(haystack )
+  var keys = Object.keys(haystack)
 
   console.log("searching for " + needle)
   for (i=0; i < keys.length; i++) {
