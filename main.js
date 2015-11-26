@@ -12,15 +12,15 @@ function Bible(text) {
 
 function search(searchText, bible) {
   var results = []
-  var allResults = []
 
   var keys = Object.keys(bible)
-  for (i=0; i < keys.length; i++) {
-    var bookName = keys[i]
+  for (var i=0; i < keys.length; i++) {
     console.log("searching book " + i + " " + bookName)
+    var bookName = keys[i]
+    var bookResults = searchBook(searchText, bible[bookName], bookName)
+    results = results.concat(bookResults)
   }
-  bookName = "Matthew"
-  results = searchBook(searchText, bible[bookName], bookName)
+
   console.log("returning " + results.length + " results")
   return results
 }
@@ -30,8 +30,8 @@ function searchBook(needle, haystack, bookName) {
   var results = []
   var keys = Object.keys(haystack)
 
-  console.log("searching for " + needle)
-  for (i=0; i < keys.length; i++) {
+  console.log("searching book " + bookName + " for " + needle)
+  for (var i=0; i < keys.length; i++) {
     var key = keys[i]
     var lineOfText = haystack[key]
 
@@ -43,8 +43,6 @@ function searchBook(needle, haystack, bookName) {
       results.push(result)
     }
   }
-
-  console.log(results)
   return results
 }
 
@@ -57,13 +55,13 @@ function clearResults() {
 
 function display(results) {
   var searchResults = document.getElementById("searchResults")
-  for (i = 0; i < results.length; i++) {
+  for (var i = 0; i < results.length; i++) {
     var result = results[i]
     var p = document.createElement("p")
     var txt = document.createTextNode(result.bookName + " " + result.location + " " + result.text )
     p.appendChild(txt)
     searchResults.appendChild(p)
-    console.log(results[i])
+    // console.log(results[i])
   }
 }
 
