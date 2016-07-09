@@ -9,7 +9,6 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-
 app.get('/:book', function (req, res) {
   text = getText(req)
   res.send(text)
