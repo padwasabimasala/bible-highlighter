@@ -2,6 +2,7 @@ require('./util')
 var express = require('express');
 var app = express();
 var bible = require('./bible.mod').bible
+var port = process.env['PORT'] || '3000'
 
 exports.app = app
 
@@ -10,27 +11,36 @@ app.get('/', function (req, res) {
 });
 
 app.get('/:book', function (req, res) {
-  text = getText(req)
+  text = getText(req.params)
   res.send(text)
 });
 
 app.get('/:book/:chapter', function (req, res) {
-  res.send('Your book and chapter is ' + req.params.book + ' ' + req.params.chapter)
+  text = getText(req.params)
+  res.send(text)
 });
 
 app.get('/:book/:chapter/:verse', function (req, res) {
   res.send('Your book and chapter and verse is ' + req.params.book + ' ' + req.params.chapter + ' ' + req.params.verse)
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(port, function () {
+  console.log('Example app listening on port ', port);
 });
 
-function getText(req) {
-	var book = bible[req.params.book.capitalize()]
+function getText(params) {
+	var book = bible[params.book.capitalize()]
+	var chapter = params.chapter
   text = ""
   Object.keys(book).map(function(value, index) {
-    text += book[value]
+    if (chapter) {
+      chapter = String("000" + chapter).slice(-3)
+      regex = new RegExp("^" + chapter + ":")
+      if (value.match(regex))
+        text += book[value]
+    } else {
+      text += book[value]
+    }
   })
   return text
 }
