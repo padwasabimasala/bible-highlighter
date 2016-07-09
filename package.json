@@ -4,7 +4,7 @@
   "description": "A bible study tool",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "autotest": "./node_modules/.bin/supervisor -w test,./ -q -n exit -x ./node_modules/.bin/mocha -- -b",
     "run": "./node_modules/.bin/nodemon app.js"
   },
   "repository": {
@@ -21,15 +21,9 @@
     "express": "^4.14.0"
   },
   "devDependencies": {
-    "jasmine": "^2.4.1",
-    "jasmine-core": "^2.4.1",
-    "jasmine-node": "^1.14.5",
-    "karma": "^1.1.1",
-    "karma-chrome-launcher": "^1.0.1",
-    "karma-jasmine": "^1.0.2",
     "mocha": "^2.5.3",
     "nodemon": "^1.9.2",
-    "request": "^2.72.0",
-    "supertest": "^1.2.0"
+    "supertest": "^1.2.0",
+    "supervisor": "^0.11.0"
   }
 }
