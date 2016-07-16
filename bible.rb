@@ -30,6 +30,7 @@ end
 if ARGV[0] == '--test'
   ARGV.pop
   require 'minitest/autorun'
+	require 'rexml/document'
 
 	class TestBible < Minitest::Test
 		def setup
@@ -68,7 +69,6 @@ if ARGV[0] == '--test'
 		end
 
 		def test_fmt_html
-			require 'rexml/document'
 			html = @bible.fmt_html @bible.genesis
 			xmldoc = REXML::Document.new(html)
 		end
