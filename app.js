@@ -47,7 +47,7 @@ function getText(params) {
       if (value.match(regex))
         text += book[value] + " "
     } else {
-      text += book[value]
+      text += book[value] + " "
     }
   })
   return text
