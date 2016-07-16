@@ -1,4 +1,8 @@
 #!/usr/bin/env ruby
+# Converts a ref formatted Bible text into json written to stdout
+# Usage parse.rb <inputfile>
+# Example parse.rb NIV > niv.json
+
 require 'json'
 
 class Book
