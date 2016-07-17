@@ -3,6 +3,7 @@
 # Usage: $0 --test
 
 require 'json'
+require 'rexml/document'
 
 class Bible
 
@@ -22,7 +23,13 @@ class Bible
 	end
 
 	def fmt_html(book_name)
-		"<div data-book='#{book_name}'></div>"
+		text = send book_name.to_sym
+		html = REXML::Document.new
+		html.add_element "div", { 'data-book' => book_name }
+		root = html.root
+		root.add_element "div", { 'data-book' => book_name, 'data-chapter' => '001' }
+		root.add_element "div", { 'data-book' => book_name, 'data-chapter' => '002' }
+		html.to_s
 	end
 
 end
@@ -30,7 +37,6 @@ end
 if ARGV[0] == '--test'
   ARGV.pop
   require 'minitest/autorun'
-	require 'rexml/document'
 
 	class TestBible < Minitest::Test
 		def setup
@@ -39,7 +45,8 @@ if ARGV[0] == '--test'
 					"Genesis": {
             "001:001": "In the beginning God created the heavens and the earth.",
             "001:002": "Now the earth was formless and empty...",
-            "001:003": "And God said, \"Let there be light,\" and there was light."
+            "001:003": "And God said, \"Let there be light,\" and there was light.",
+						"002:001": "Thus the heavens and the earth were completed..."
 					},
           "Exodus": {
             "001:001": "These are the names of the sons of Israel who went to Egypt  with Jacob, each with his family:",
@@ -51,6 +58,8 @@ if ARGV[0] == '--test'
 
 			@filename = 'bible.json'
 			@bible = ::Bible.new JSON.parse @json.strip
+			html = @bible.fmt_html "genesis"
+			@xmldoc = REXML::Document.new(html)
 		end
 
 		def test_it_works
@@ -68,17 +77,16 @@ if ARGV[0] == '--test'
 			assert_equal "In the beginning God created the heavens and the earth.", @bible.genesis["001:001"]
 		end
 
-		def test_fmt_html
-			html = @bible.fmt_html @bible.genesis
-			xmldoc = REXML::Document.new(html)
-		end
-
 		def test_fmt_html_returns_root_with_correct_book_attr
-			require 'rexml/document'
-			html = @bible.fmt_html "genesis"
-			xmldoc = REXML::Document.new(html)
-			assert_equal "genesis", xmldoc.root.attributes["data-book"]
+			assert_equal "genesis", @xmldoc.root.attributes["data-book"]
 		end
 
+		def test_fmt_html_returns_chapter_divs
+			elms = @xmldoc.root.elements.to_a
+			assert_equal "001", elms.first.attributes['data-chapter']
+			assert_equal "div", elms.first.name
+			assert_equal "002", elms.last.attributes['data-chapter']
+			assert_equal "div", elms.last.name
+		end
 	end
 end
