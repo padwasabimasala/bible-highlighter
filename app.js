@@ -7,7 +7,7 @@ var port = process.env['PORT'] || '3000'
 exports.app = app
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('Hello World! <a href="/john/3/16">John 3:16</a>');
 });
 
 app.get('/:book', function (req, res) {
