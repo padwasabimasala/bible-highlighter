@@ -1,3 +1,5 @@
 # Bible Highlighter
 
-Usage: http://<appname>/john/3/16
+Usage: `http://<appname>/<bookname>/<chapter>/<verse>`
+
+Try (/john/3/16)
