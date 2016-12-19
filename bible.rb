@@ -24,11 +24,21 @@ class Bible
 
 	def fmt_html(book_name)
 		text = send book_name.to_sym
+
 		html = REXML::Document.new
 		html.add_element "div", { 'data-book' => book_name }
 		root = html.root
-		root.add_element "div", { 'data-book' => book_name, 'data-chapter' => '001' }
-		root.add_element "div", { 'data-book' => book_name, 'data-chapter' => '002' }
+
+		last_chapter_num = false
+		text.each do |location, text|
+			chapter_num, verse_num = location.split(':')
+			unless chapter_num == last_chapter_num
+				elm = root.add_element "div", { 'data-book' => book_name, 'data-chapter' => chapter_num }
+				last_chapter_num = chapter_num
+			end
+			v = elm.add_element "span", { 'data-book' => book_name, 'data-chapter' => chapter_num, 'data-verse' => verse_num }
+			v.text = text
+		end
 		html.to_s
 	end
 
@@ -87,6 +97,22 @@ if ARGV[0] == '--test'
 			assert_equal "div", elms.first.name
 			assert_equal "002", elms.last.attributes['data-chapter']
 			assert_equal "div", elms.last.name
+		end
+
+		def test_fmt_html_returns_verses_in_spans
+			elms = @xmldoc.root.elements.first.elements.to_a
+			assert_equal "001", elms[0].attributes['data-verse']
+			assert_equal "span", elms[0].name
+			assert_equal "In the beginning God created the heavens and the earth.", elms[0].text
+
+			# assert_equal "002", elms[1].attributes['data-verse']
+			# assert_equal "003", elms[2].attributes['data-verse']
+			# assert_equal "div", elms.first.name
+			# assert_equal "002", elms.last.attributes['data-chapter']
+      #       # "In the beginning God created the heavens and the earth.",
+      #       # "Now the earth was formless and empty...",
+      #       # "And God said, \"Let there be light,\" and there was light.",
+			# assert_equal "div", elms.last.name
 		end
 	end
 end

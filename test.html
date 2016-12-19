@@ -2,28 +2,61 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Bible Genius Test</title>
-    <link rel="stylesheet" href="qunit-1.20.0.css">
-    <script src="qunit-1.20.0.js"></script>
-    <script src="main.js"></script>
+    <title> Test</title>
+    <link rel="stylesheet" href="node_modules/qunitjs/qunit/qunit.css">
+    <script src="node_modules/qunitjs/qunit/qunit.js"></script>
+    <script src="formatter.js"></script>
     <script>
-    //   var bibleStruct = {
-    //   "SomeBook": {
-    //     "001:001": "the first line of SomeBook",
-    //     "001:002: "the second line of SomeBook"
-    //     },
-    //   "AnotherBook": {
-    //     "001:001": "the first line of AnotherBook"
-    //   }
-    // }
+      function add1(i) { return i + 1 }
+      function sub1(i) { return i - 1 }
 
-      QUnit.test("new Bible", function( assert) {
-        // var expectedResult = ["The Cat", "the other cat"]
-        // assert.equal(search("cat", haystack), expectedResult )
-        var bible = new Bible("bible text")
-        assert.equal(bible.text, "bible text")
+      QUnit.test("getChapter", function( assert ) {
+        assert.equal(getChapter("001:234"), "1")
+        assert.equal(getChapter("01:234"), "1")
+        assert.equal(getChapter("1:234"), "1")
       })
-      // tests go here :)
+
+      QUnit.test("getVerse", function( assert ) {
+        assert.equal(getVerse("001:002"), "2")
+        assert.equal(getVerse("001:02"), "2")
+        assert.equal(getVerse("001:2"), "2")
+      })
+
+      QUnit.test("chapterStr", function( assert ) {
+        assert.equal(chapterStr(5), `<span class="chapterNum">5</span>`)
+      })
+
+      QUnit.test("verseStr", function( assert ) {
+        assert.equal(verseStr(5), `<span class="verseNum">5</span>`)
+      })
+
+      QUnit.test("oncePerValue", function( assert ) {
+        var nums = [1,5,11,1,7]
+        var func = oncePerValue(add1)
+        assert.deepEqual(nums.map(func), [2,6,12,undefined,8])
+      })
+
+      QUnit.test("chapterOnce", function( assert ) {
+        var func = chapterOnce()
+        var vals = [["005:123", "anything"],["005:123", "anything"]]
+        assert.deepEqual(vals.map(func), [`<span class="chapterNum">5</span>`, undefined])
+      })
+
+      QUnit.test("doEach", function( assert ) {
+        var func = doEach(add1,sub1)
+        assert.deepEqual(func(1), [2,0])
+        var nums = [1,5]
+        assert.deepEqual(nums.map(func), [[2,0], [6,4]])
+      })
+
+      QUnit.test("doEach(chapterOnce)", function( assert ) {
+        var func1 = chapterOnce()
+        var func2 = doEach(func1)
+        var vals = [["005:123", "anything"],["005:123", "anything"]]
+        assert.deepEqual(vals.map(func2), [[`<span class="chapterNum">5</span>`], [undefined]])
+      })
+
+
     </script>
   </head>
   <body>

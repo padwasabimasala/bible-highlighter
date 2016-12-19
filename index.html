@@ -21,10 +21,18 @@
   <body>
     <h1>Bible Genius</h1>
     <p>Enter a word and click search to see matching results from the Gospel of Matthew</p>
+    <span id="url"></span>
     <form id="searchForm">
       <input id="searchBox" type="text">
       <input type="submit">
     </form>
     <div id="searchResults"></div>
   </body>
+  <script>
+
+    var urlSpan = document.getElementById("url")
+    urlSpan.innerHTML = window.location.href
+
+  </script>
+
 </html>

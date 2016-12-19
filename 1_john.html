@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bible Genius</title>
+    <script src="bible.js"></script>
+    <script src="main.js"></script>
+    <script src="formatter.js"></script>
+    <style>
+      .chapterNum { font-size: 3em; padding: 0 }
+      .verseNum { font-size: 0.5em }
+    </style>
+    <script>
+      domReady(function () {
+        var text = document.getElementById("text")
+        var verses = bible["1 John"]
+
+        var chapter = chapterOnce()
+        var versen = function(reftup) {
+          return verseStr(getVerse(reftup.slice(0 ).shift()))
+        }
+        var verseText = function(reftup) {
+          return reftup.slice(0).pop()
+        }
+        var formatters =  doEach(chapter, versen, verseText )
+
+        var appender = appendToElem(text)
+        Object.entries(verses).map(formatters).map(joiner).map(appender)
+
+      })
+
+      function appendToElem(elm){
+        return function(text) {
+          elm.innerHTML = elm.innerHTML + text
+        }
+      }
+
+      function joiner(arr){
+        return arr.filter(something).join(" ")
+      }
+
+      function something(v) {
+        if (v) { return true }
+        return false
+      }
+
+      function logif(x) {
+        if (x) { console.log(x) }
+      }
+
+      function createElementWithText(tagName, text) {
+          var elm = document.createElement(tagName)
+          var txt = document.createTextNode(text)
+          elm.appendChild(txt)
+          return elm
+      }
+    </script>
+  </head>
+  <body>
+    <h1>1 John</h1>
+    <div id="text"></div>
+  </body>
+</html>
